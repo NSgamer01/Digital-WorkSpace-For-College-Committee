@@ -1,0 +1,235 @@
+/* ============================================
+   src/pages/Calendar.css
+   ============================================
+   react-big-calendar theme overrides using CSS
+   variables. ONLY for RBC internal class styles.
+   ============================================ */
+
+/* ── Base ─────────────────────────────────────── */
+.rbc-calendar {
+    color: var(--textPrimary);
+    font-family: inherit;
+}
+
+.rbc-toolbar {
+    margin-bottom: 16px;
+    display: none;
+    /* We use our own toolbar */
+}
+
+/* ── Month view ───────────────────────────────── */
+.rbc-header {
+    background: var(--bgTertiary);
+    color: var(--textPrimary);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 8px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.rbc-month-view {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.rbc-month-row+.rbc-month-row {
+    border-top: 1px solid var(--border);
+}
+
+.rbc-day-bg {
+    background: var(--bgPrimary);
+}
+
+.rbc-day-bg+.rbc-day-bg {
+    border-left: 1px solid var(--borderLight, var(--border));
+}
+
+.rbc-today {
+    background: rgba(99, 102, 241, 0.06);
+}
+
+.rbc-off-range-bg {
+    background: var(--bgTertiary);
+}
+
+.rbc-off-range {
+    color: var(--textTertiary);
+}
+
+.rbc-date-cell {
+    color: var(--textSecondary);
+    padding: 4px 8px;
+    font-size: 13px;
+}
+
+.rbc-date-cell.rbc-now {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* ── Events ───────────────────────────────────── */
+.rbc-event {
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 12px;
+    border: none !important;
+    cursor: pointer;
+}
+
+.rbc-event:hover {
+    opacity: 1 !important;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.rbc-event.rbc-selected {
+    box-shadow: 0 0 0 2px var(--accent);
+}
+
+.rbc-event-content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rbc-show-more {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* ── Overlay popover ──────────────────────────── */
+.rbc-overlay {
+    background: var(--cardBg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px var(--shadowMedium);
+    padding: 8px;
+}
+
+.rbc-overlay-header {
+    border-bottom: 1px solid var(--border);
+    padding: 4px 8px 8px;
+    color: var(--textSecondary);
+    font-size: 12px;
+}
+
+/* ── Week / Day view ──────────────────────────── */
+.rbc-time-view {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.rbc-time-header {
+    background: var(--bgTertiary);
+}
+
+.rbc-time-header-content {
+    border-left: 1px solid var(--border);
+}
+
+.rbc-time-content {
+    border-top: 2px solid var(--border);
+}
+
+.rbc-timeslot-group {
+    border-bottom: 1px solid var(--borderLight, var(--border));
+}
+
+.rbc-time-slot {
+    border-top: 1px solid transparent;
+}
+
+.rbc-day-slot .rbc-time-slot {
+    border-top-color: var(--borderLight, var(--border));
+}
+
+.rbc-time-gutter {
+    background: var(--bgTertiary);
+    color: var(--textTertiary);
+    font-size: 11px;
+}
+
+.rbc-current-time-indicator {
+    background: var(--error, #ef4444);
+    height: 2px;
+}
+
+.rbc-allday-cell {
+    background: var(--bgTertiary);
+}
+
+/* ── Agenda view ──────────────────────────────── */
+.rbc-agenda-view {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.rbc-agenda-view table {
+    color: var(--textPrimary);
+}
+
+.rbc-agenda-view table td,
+.rbc-agenda-view table th {
+    border-bottom: 1px solid var(--borderLight, var(--border));
+    padding: 8px 12px;
+}
+
+.rbc-agenda-date-cell {
+    color: var(--textSecondary);
+    font-weight: 500;
+}
+
+.rbc-agenda-time-cell {
+    color: var(--textTertiary);
+}
+
+.rbc-agenda-event-cell {
+    color: var(--textPrimary);
+}
+
+/* ── Selection highlight ──────────────────────── */
+.rbc-slot-selection {
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+}
+
+/* ── Transitions for theme switching ──────────── */
+.rbc-calendar * {
+    transition: background-color 0.3s ease, color 0.2s ease, border-color 0.3s ease;
+}
+
+/* ── Animations ───────────────────────────────── */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 900px) {
+    .calendar-layout {
+        flex-direction: column !important;
+    }
+
+    .calendar-sidebar {
+        width: 100% !important;
+        min-width: unset !important;
+    }
+}

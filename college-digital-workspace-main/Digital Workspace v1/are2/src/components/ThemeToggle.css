@@ -1,0 +1,147 @@
+/* ============================================
+   src/components/ThemeToggle.css
+   ============================================
+   Theme toggle button + transition animations.
+   ============================================ */
+
+/* ── Toggle Button ───────────────────────────────────────────── */
+.theme-toggle-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border, #27272a);
+    background: var(--bgSecondary, #18181b);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+    border-color: var(--accent, #6366f1);
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.theme-toggle-btn:disabled {
+    cursor: not-allowed;
+}
+
+.theme-toggle-btn.transitioning {
+    animation: buttonPulse 0.6s ease;
+}
+
+.theme-toggle-icon {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle-btn:hover .theme-toggle-icon {
+    transform: rotate(180deg);
+}
+
+@keyframes buttonPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* ── Transition Overlay ──────────────────────────────────────── */
+.theme-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+}
+
+/* PRIMARY: Diagonal Slide */
+.theme-transition-overlay.diagonal {
+    background: var(--transitionColor, #1a1a1a);
+    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+    opacity: 1;
+}
+
+.theme-transition-overlay.diagonal.active {
+    animation: diagonalSlide 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes diagonalSlide {
+    0% { clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%); }
+    50% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    100% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+}
+
+/* ALTERNATIVE: Circular Expand (uncomment to use) */
+/*
+.theme-transition-overlay.circular {
+    background: var(--transitionColor, #1a1a1a);
+    clip-path: circle(0% at var(--clickX, 50%) var(--clickY, 50%));
+    opacity: 1;
+}
+
+.theme-transition-overlay.circular.active {
+    animation: circularExpand 0.8s ease-out forwards;
+}
+
+@keyframes circularExpand {
+    0% { clip-path: circle(0% at var(--clickX) var(--clickY)); opacity: 1; }
+    50% { clip-path: circle(100% at var(--clickX) var(--clickY)); opacity: 1; }
+    100% { clip-path: circle(100% at var(--clickX) var(--clickY)); opacity: 0; }
+}
+*/
+
+/* ── Global Smooth Color Transitions ─────────────────────────── */
+* {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+/* ── Page Content Animations During Theme Transition ─────────── */
+[data-theme-transitioning="true"] .page-content {
+    animation: pageContentFade 0.6s ease;
+}
+
+[data-theme-transitioning="true"] .card,
+[data-theme-transitioning="true"] [class*="card"] {
+    animation: cardFlip 0.6s ease;
+}
+
+[data-theme-transitioning="true"] .sidebar,
+[data-theme-transitioning="true"] [class*="sidebar"] {
+    animation: sidebarSlide 0.6s ease;
+}
+
+@keyframes pageContentFade {
+    0% { opacity: 1; }
+    40% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+@keyframes cardFlip {
+    0% { transform: perspective(600px) rotateY(0deg); }
+    40% { transform: perspective(600px) rotateY(5deg); }
+    100% { transform: perspective(600px) rotateY(0deg); }
+}
+
+@keyframes sidebarSlide {
+    0% { transform: translateX(0); }
+    40% { transform: translateX(-10px); }
+    100% { transform: translateX(0); }
+}

@@ -1,0 +1,188 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ================================
+    // Users
+    // ================================
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth.uid == userId;
+    }
+
+    // ================================
+    // Chats
+    // ================================
+    match /chats/{chatId} {
+
+      allow read: if request.auth != null;
+
+      // Create: direct chats by participants, or system chats (announcement/general)
+      allow create: if request.auth != null
+                    && (
+                      // Direct chat — user must be a participant
+                      (request.resource.data.type == "direct"
+                       && request.resource.data.participants.hasAny([request.auth.uid]))
+                      ||
+                      // System chats (announcement / general) — any authenticated user
+                      request.resource.data.type in ["announcement", "general"]
+                    );
+
+      // Update: type cannot change; participants immutable on direct chats
+      allow update: if request.auth != null
+                    && request.resource.data.type == resource.data.type
+                    && (
+                      // System chats — no participants restriction
+                      resource.data.type in ["announcement", "general"]
+                      ||
+                      // Direct chats — participants must stay the same
+                      request.resource.data.participants == resource.data.participants
+                    );
+
+      allow delete: if false;
+
+      // Messages subcollection
+      match /messages/{messageId} {
+
+        allow read: if request.auth != null;
+
+        // Validate senderId matches auth user + channel-specific permission
+        allow create: if isAllowedToWrite(chatId)
+                      && request.resource.data.senderId == request.auth.uid;
+
+        // Sender can edit/delete; any authenticated user can mark as read
+        allow update: if request.auth != null
+                      && (
+                        // Sender can update anything on their own message
+                        request.auth.uid == resource.data.senderId
+                        ||
+                        // Any auth user can update ONLY readBy (for read receipts)
+                        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['readBy']))
+                      );
+
+        allow delete: if false;
+      }
+
+      // Typing subcollection
+      match /typing/{typingUserId} {
+        allow read: if request.auth != null;
+        allow write: if request.auth != null
+                     && request.auth.uid == typingUserId;
+      }
+    }
+
+    // ================================
+    // Tasks
+    // ================================
+    match /tasks/{taskId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // ================================
+    // Meetings
+    // ================================
+    match /meetings/{meetingId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // ================================
+    // Uploads
+    // ================================
+    match /uploads/{uploadId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // ================================
+    // Activities
+    // ================================
+    match /activities/{activityId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // ================================
+    // Drive — Files
+    // ================================
+    match /files/{fileId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // ================================
+    // Drive — Folders
+    // ================================
+    match /folders/{folderId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // ================================
+    // Announcements (root collection)
+    // ================================
+    match /announcements/{announcementId} {
+      // Any authenticated user can read announcements
+      allow read: if request.auth != null;
+
+      // Only teachers and admins can create announcements
+      allow create: if request.auth != null &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in
+          ["teacher", "admin", "Teacher", "Admin"];
+
+      // Only the sender or an admin can update/delete
+      allow update, delete: if request.auth != null &&
+        (resource.data.senderId == request.auth.uid ||
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in
+           ["admin", "Admin"]);
+    }
+
+    // ================================
+    // Committees
+    // ================================
+    match /committees/{committeeId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // ================================
+    // Helper Functions
+    // ================================
+    function isAllowedToWrite(chatId) {
+      let chat = get(/databases/$(database)/documents/chats/$(chatId)).data;
+      let user = get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+
+      return
+        request.auth != null &&
+        (
+          // General chat: any authenticated user
+          chat.type == "general"
+
+          ||
+
+          // Direct: only participants
+          (chat.type == "direct" &&
+           chat.participants.hasAny([request.auth.uid]))
+
+          ||
+
+          // Announcement: only teacher or admin
+          (chat.type == "announcement" &&
+           (user.role == "teacher" || user.role == "admin" ||
+            user.role == "Teacher" || user.role == "Admin"))
+        );
+    }
+  }
+}
+
+
+// ================================================================
+// REALTIME DATABASE RULES
+// (Paste in Firebase Console → Realtime Database → Rules)
+// ================================================================
+//
+// {
+//     "rules": {
+//         "status": {
+//             "$uid": {
+//                 ".read": "auth != null",
+//                 ".write": "auth != null && auth.uid === $uid"
+//             }
+//         }
+//     }
+// }

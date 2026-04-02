@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "digital-workspace-487908",
+  "private_key_id": "305a5cb7d71626eb17ecb341789db9134b1d6417",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDmc/tZoeUL8fPt\nl9FU3of1j5m2nxk/EB6tPapntEEp9/e+Tv0dmNu/DmkS8YyzvrsKgiR3+5nROA4w\nYPQb47OMwNtXbNUKNjIEcX0ZPd/TlUHK7RbFWlKQhmkrRXjOfGu1Hsy3BjYf8+iF\nykXcTDTnnRtyIUHLnhH66RZIC04b0kHtRfmMcGhp8ihUWCZ1tiFIXbH4eVkZYH88\ndlIn1oXQJuw8y9XyGPFNA0S7fHVe0grjK7jDir4whin7mSwgb8kH2E4F+VBp1cF6\nfBSCmBb9GA3Xjz7iXwyRyhBTANgwVUjqXXpoJDpvQGNC4DJqh9Y71rgM2q1OBPIs\nBVuUkat9AgMBAAECggEAALlzHBG/nUdbX6VV4pZV7MrOCgMxj/tIuALYczVfk3UT\n7Tv99e/TClEAfJN23xP+AaJPB8GRI3bjp+uaGeIf/wFkUpjYn/DzmzCv1UyIrY2q\nVHb7TlqICcIzRn9iIwSjLBTfzTxPOva43vM6ky+KytCB3UkkdJk9Epmi0d7fqWgX\nKygTDsCKC0Kj9VL9BPVt22Pj5t6x3MLPB7uqpnizsdoSQKIjN3Ep26N27H+clwCW\nm3dTUlGQuWH2WdO729sPpiWNFDcgTDlhe+XzQIyeKpYdWDOBwlvH4wBRhFL0UyvN\n+eoBBRJMl/tXH6ZzP5BeBtYH+NroRNFNdLHarfl2iQKBgQD5CrbgWxJcjNLGiWFo\nHtP95yxtQhgCFNm03yt7VdBAGxywRS5sgxn5dFGWK9688Y0ySUhh3JicYtakh13J\nCUVANYpJKWvVj/KXyogKlVaXhSNo0Wk76qpH9IpoCu7p0dodjhmf4f+8AsVznVzb\n3bLRq7lvP8rwfV5TvQs0AZuUZQKBgQDs5E9gPVX6tzja2Ms6nc46Z3aTOuZdySOt\now4YFzdFp2Qya4jMI5mMez4vrkYLTMCHi4FoHsaxsQ/f1ch0LHw7p2MezUA3byKQ\nK4tAwLIHGJ/kc9y3nd/t2iPuh84hKXCgWAIFaOiS4CECio5BoxjDzORY5O4ILOIW\nqdxrZ0qNOQKBgFQKjZRAp32b+DUPf1OHs7pnHNLyDvAE4ULsXNwOJWy8uX2ymuv7\ngfRwkGfA/jV8vk1N9aMwsj90C0MSe0+wVTJJ3xS5aa50GUWoDyijJMmVIFHq+TxD\nAJuvplVd+ynkq1p17afKuGZV+RP+8qsvsXyYGse0G2P0qrRPg0xVjo8RAoGAA2xN\nJVPdkTDilm75iNBM8ZUbJod8WrCUXmbzxi9Xsh74GK5rHKALEPea729yPamPQqYm\naY3AS0MGurJJIjyeUvJZQVGv8t0dP74RVg8yw118uf1enByg5rv3NvQpa1tA8GA1\nL0TTz4ODlpjP82za58FnL02njuCvJ6qur7KfZikCgYA8ZhHSLB1NdcwAao/Py2jl\nM5bDVMI+PUT1S4Zwtx/qFipgnkYGozVrZ9MYA3/PS6ULCAqHqcwOSCvrwPPvQse4\n7/tzShI8I+eyvQIP1rWWCbv2FOMYtrwirfWyQzVO/0hupcdX/BR0f1RZaVNsCYuf\nbuUv5gX+v7Y3xbSyUS1axw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "college-workspace-drive@digital-workspace-487908.iam.gserviceaccount.com",
+  "client_id": "118081557923622246629",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/college-workspace-drive%40digital-workspace-487908.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
